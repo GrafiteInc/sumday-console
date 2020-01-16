@@ -3,7 +3,6 @@
 namespace App\Commands;
 
 use App\Services\ConfigService;
-use Illuminate\Console\Scheduling\Schedule;
 use LaravelZero\Framework\Commands\Command;
 
 class ConfigCommand extends Command
@@ -41,20 +40,11 @@ class ConfigCommand extends Command
             $this->info('This directory is now paired with the client.');
         }
 
-        if (!is_null($this->option('projects'))) {
+        if (!is_null($this->option('project'))) {
             app(ConfigService::class)->addPathToProject($this->option('project'));
             $this->info('This directory is now paired with the project.');
         }
-    }
 
-    /**
-     * Define the command's schedule.
-     *
-     * @param  \Illuminate\Console\Scheduling\Schedule $schedule
-     * @return void
-     */
-    public function schedule(Schedule $schedule)
-    {
-        // $schedule->command(static::class)->everyMinute();
+        return;
     }
 }

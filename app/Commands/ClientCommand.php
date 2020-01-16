@@ -3,7 +3,6 @@
 namespace App\Commands;
 
 use App\Services\ApiService;
-use Illuminate\Console\Scheduling\Schedule;
 use LaravelZero\Framework\Commands\Command;
 
 class ClientCommand extends Command
@@ -34,16 +33,5 @@ class ClientCommand extends Command
         foreach ($clients as $client) {
             $this->info($client->name.': '.$client->uuid);
         }
-    }
-
-    /**
-     * Define the command's schedule.
-     *
-     * @param  \Illuminate\Console\Scheduling\Schedule $schedule
-     * @return void
-     */
-    public function schedule(Schedule $schedule)
-    {
-        // $schedule->command(static::class)->everyMinute();
     }
 }

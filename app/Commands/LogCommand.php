@@ -4,7 +4,6 @@ namespace App\Commands;
 
 use App\Services\ApiService;
 use App\Services\ConfigService;
-use Illuminate\Console\Scheduling\Schedule;
 use LaravelZero\Framework\Commands\Command;
 
 class LogCommand extends Command
@@ -51,16 +50,5 @@ class LogCommand extends Command
         ]);
 
         $this->info($log->hours.' hours logged for: '.$log->client->name);
-    }
-
-    /**
-     * Define the command's schedule.
-     *
-     * @param  \Illuminate\Console\Scheduling\Schedule $schedule
-     * @return void
-     */
-    public function schedule(Schedule $schedule)
-    {
-        // $schedule->command(static::class)->everyMinute();
     }
 }

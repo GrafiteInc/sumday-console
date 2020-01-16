@@ -4,7 +4,6 @@ namespace App\Commands;
 
 use App\Services\ApiClient;
 use App\Services\ConfigService;
-use Illuminate\Console\Scheduling\Schedule;
 use LaravelZero\Framework\Commands\Command;
 
 class AuthCommand extends Command
@@ -39,16 +38,5 @@ class AuthCommand extends Command
         app(ConfigService::class)->setToken($authentication->access_token);
 
         $this->info('You\'ve successfully logged in.');
-    }
-
-    /**
-     * Define the command's schedule.
-     *
-     * @param  \Illuminate\Console\Scheduling\Schedule $schedule
-     * @return void
-     */
-    public function schedule(Schedule $schedule)
-    {
-        // $schedule->command(static::class)->everyMinute();
     }
 }
