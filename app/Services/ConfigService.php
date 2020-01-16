@@ -8,24 +8,34 @@ class ConfigService
 {
     public $files;
 
-    public $configDirectory;
+    public $config_path;
 
-    public function __construct(Filesystem $files)
+    public function __construct(Filesystem $files, $configPath = null)
     {
         $this->files = $files;
+
+        $this->setConfigPath($configPath);
         $this->setUpConfig();
+    }
+
+    public function setConfigPath($path = null)
+    {
+        if (!is_null($path)) {
+            $this->config_path = $path;
+            return;
+        }
+
+        $this->config_path = posix_getpwuid(fileowner(__FILE__))['dir'].'/.config/sumday';
     }
 
     public function setUpConfig()
     {
-        $home = posix_getpwuid(fileowner(__FILE__))['dir'].'/.config/sumday';
-
-        if (! $this->files->isDirectory($home)) {
-            $this->files->makeDirectory($home);
+        if (! $this->files->isDirectory($this->config_path)) {
+            $this->files->makeDirectory($this->config_path);
         }
 
-        if (! $this->files->exists("$home/config.json")) {
-            $this->files->put("$home/config.json", $this->defaultConfig());
+        if (! $this->files->exists("$this->config_path/config.json")) {
+            $this->files->put("$this->config_path/config.json", $this->defaultConfig());
         }
     }
 
@@ -40,16 +50,12 @@ class ConfigService
 
     public function get()
     {
-        $home = posix_getpwuid(fileowner(__FILE__))['dir'].'/.config/sumday';
-
-        return json_decode($this->files->get("$home/config.json"));
+        return json_decode($this->files->get("$this->config_path/config.json"));
     }
 
     public function put($content)
     {
-        $home = posix_getpwuid(fileowner(__FILE__))['dir'].'/.config/sumday';
-
-        return $this->files->put("$home/config.json", json_encode($content, JSON_PRETTY_PRINT));
+        return $this->files->put("$this->config_path/config.json", json_encode($content, JSON_PRETTY_PRINT));
     }
 
     public function defaultConfig()

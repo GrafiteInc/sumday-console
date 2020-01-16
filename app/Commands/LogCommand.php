@@ -32,8 +32,10 @@ class LogCommand extends Command
      */
     public function handle()
     {
-        $clientPaths = (array) app(ConfigService::class)->get()->clients;
-        $projectPaths = (array) app(ConfigService::class)->get()->projects;
+        $config = app(ConfigService::class)->get();
+
+        $clientPaths = (array) $config->clients;
+        $projectPaths = (array) $config->projects;
 
         $allPaths = array_merge($clientPaths, $projectPaths);
 

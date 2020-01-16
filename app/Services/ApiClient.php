@@ -41,11 +41,6 @@ class ApiClient
         return $response->body;
     }
 
-    public function logout()
-    {
-        // logout
-    }
-
     public function post($url, $payload)
     {
         $response = $this->curl::post($this->url($url), $this->headers, $payload);
