@@ -3,9 +3,6 @@
 namespace App\Commands;
 
 use App\Services\ApiClient;
-use App\Services\ApiService;
-use Gitonomy\Git\Repository;
-use Illuminate\Support\Carbon;
 use App\Services\ConfigService;
 use Illuminate\Console\Scheduling\Schedule;
 use LaravelZero\Framework\Commands\Command;
@@ -40,6 +37,8 @@ class AuthCommand extends Command
         $authentication = app(ApiClient::class)->login($this->argument('email'), $password);
 
         app(ConfigService::class)->setToken($authentication->access_token);
+
+        $this->info('You\'ve successfully logged in.');
     }
 
     /**
