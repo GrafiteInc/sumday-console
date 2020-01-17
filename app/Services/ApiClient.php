@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use Exception;
 use Unirest\Request;
 use Unirest\Request\Body;
 
@@ -25,25 +26,13 @@ class ApiClient
         $this->headers = $headers;
     }
 
-    public function login($email, $password)
-    {
-        $headers = [];
-
-        $payload = [
-            'email' => $email,
-            'password' => $password,
-        ];
-
-        $body = Body::form($payload);
-
-        $response = $this->curl::post($this->url('auth/login'), $headers, $body);
-
-        return $response->body;
-    }
-
-    public function post($url, $payload)
+    public function post($url, $payload = [])
     {
         $response = $this->curl::post($this->url($url), $this->headers, $payload);
+
+        if ($response->code != 200) {
+            throw new Exception("Your token may have been reset or we're experiencing issues. Please try again, or reset your token.", 1);
+        }
 
         return $response->body->data;
     }
@@ -51,6 +40,10 @@ class ApiClient
     public function get($url)
     {
         $response = $this->curl::get($this->url($url), $this->headers);
+
+        if ($response->code != 200) {
+            throw new Exception("Your token may have been reset or we're experiencing issues. Please try again, or reset your token.", 1);
+        }
 
         return collect($response->body->data);
     }

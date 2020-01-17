@@ -3,7 +3,7 @@
 namespace App\Commands;
 
 use App\Services\ApiClient;
-use App\Services\ApiService;
+use Illuminate\Support\Carbon;
 use App\Services\ConfigService;
 use LaravelZero\Framework\Commands\Command;
 
@@ -15,15 +15,14 @@ class AuthCommand extends Command
      * @var string
      */
     protected $signature = 'auth
-                            {email : Your email for Sumday }
-                            {--reset : If you wish to reset your access token}';
+                            {token : Your API token from Sumday}';
 
     /**
      * The description of the command.
      *
      * @var string
      */
-    protected $description = 'Authenticate the CLI with Sumday.';
+    protected $description = 'Set your authentication token in Sumday Console';
 
     /**
      * Execute the console command.
@@ -32,12 +31,8 @@ class AuthCommand extends Command
      */
     public function handle()
     {
-        $password = $this->secret('Please enter your password');
+        app(ConfigService::class)->setToken($this->argument('token'));
 
-        $authentication = app(ApiService::class)->login($this->argument('email'), $password);
-
-        app(ConfigService::class)->setToken($authentication->access_token);
-
-        $this->info('You\'ve successfully logged in.');
+        $this->info('You\'ve added your token.');
     }
 }

@@ -34,13 +34,6 @@ class ApiServiceTest extends TestCase
         $this->service = new ApiService($client, $this->config);
     }
 
-    public function testLogin()
-    {
-        $auth = $this->service->login('foo@bar.com', 'fooboo');
-
-        $this->assertEquals('foo-bar', $auth->data['access_token']);
-    }
-
     public function testClients()
     {
         $this->config->setToken('foo-bar');

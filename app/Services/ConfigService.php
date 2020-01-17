@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use Illuminate\Support\Carbon;
 use Illuminate\Filesystem\Filesystem;
 
 class ConfigService
@@ -42,6 +43,17 @@ class ConfigService
     public function hasToken()
     {
         if (! is_null($this->get()->token)) {
+            return true;
+        }
+
+        return false;
+    }
+
+    public function tokenHasExpired()
+    {
+        $expiresAt = Carbon::parse($this->get()->token_expires_at);
+
+        if (Carbon::now()->isAfter($expiresAt)) {
             return true;
         }
 
@@ -102,6 +114,15 @@ class ConfigService
         $content = $this->get();
 
         $content->token = $token;
+
+        $this->put($content);
+    }
+
+    public function setTokenExpiresAt($time)
+    {
+        $content = $this->get();
+
+        $content->token_expires_at = $time;
 
         $this->put($content);
     }

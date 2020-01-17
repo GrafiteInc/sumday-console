@@ -26,10 +26,10 @@ composer global require "sumday/console"
 
 #### Auth
 
-The auth command lets you connect to your account on Sumday.io.
+The auth command lets you set the token for any API calls made to Sumday. You can get this token or change it in your account settings on Sumday.io
 
 ```bash
-$ sumday auth {email}
+$ sumday auth {token}
 ```
 
 #### Config

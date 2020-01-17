@@ -16,16 +16,7 @@ class ApiClientMock extends ApiClient
         // nothing
     }
 
-    public function login($email, $password)
-    {
-        return (object) [
-            'data' => [
-                'access_token' => 'foo-bar'
-            ]
-        ];
-    }
-
-    public function post($url, $payload)
+    public function post($url, $payload = [])
     {
         if ($url === 'hours/store') {
             return (object) [

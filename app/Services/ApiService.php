@@ -19,11 +19,6 @@ class ApiService
         $this->config = $config;
     }
 
-    public function login($email, $password)
-    {
-        return $this->client->login($email, $password);
-    }
-
     public function getClients()
     {
         $this->validateToken();
@@ -51,10 +46,12 @@ class ApiService
     {
         if ($this->config->hasToken()) {
             $this->client->setHeaders([
-                'Authorization' => 'bearer '.$this->config->get()->token
+                'Authorization' => 'Bearer '.$this->config->get()->token
             ]);
-        } else {
-            throw new Exception("Please login to access Sumday", 1);
+        }
+
+        if (!$this->config->hasToken()) {
+            throw new Exception("Please login to Sumday to get your API token.", 1);
         }
     }
 }
