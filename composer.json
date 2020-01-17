@@ -1,5 +1,5 @@
 {
-    "name": "grafite/sumday-console",
+    "name": "sumday/console",
     "description": "The console app for Sumday.io",
     "keywords": ["console", "cli", "sumday", "hour tracking"],
     "homepage": "https://sumday.io",
