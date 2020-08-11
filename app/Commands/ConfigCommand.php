@@ -35,12 +35,12 @@ class ConfigCommand extends Command
             return;
         }
 
-        if (!is_null($this->option('client'))) {
+        if (! is_null($this->option('client'))) {
             app(ConfigService::class)->addPathToClient($this->option('client'));
             $this->info('This directory is now paired with the client.');
         }
 
-        if (!is_null($this->option('project'))) {
+        if (! is_null($this->option('project'))) {
             app(ConfigService::class)->addPathToProject($this->option('project'));
             $this->info('This directory is now paired with the project.');
         }

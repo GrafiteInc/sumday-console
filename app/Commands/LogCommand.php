@@ -15,8 +15,8 @@ class LogCommand extends Command
      */
     protected $signature = 'log
                             {hours : The hours you worked (8:30, 3.5)}
-                            {note : Any notes you wish to add to the hour log}
-                            {--date= : The date of your hours}';
+                            {--m|note= : Any notes you wish to add to the hour log}
+                            {--d|date= : The date of your hours}';
 
     /**
      * The description of the command.
@@ -47,7 +47,7 @@ class LogCommand extends Command
         $log = app(ApiService::class)->log([
             'client' => $allPaths[getcwd()],
             'hours' => $this->argument('hours'),
-            'notes' => $this->argument('note'),
+            'notes' => $this->option('note'),
             'date' => $this->option('date') ?? null,
         ]);
 
