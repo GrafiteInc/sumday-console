@@ -17,7 +17,7 @@
     "require": {
         "php": "^7.2",
         "gitonomy/gitlib": "^1.1",
-        "laravel-zero/framework": "^6.0",
+        "laravel-zero/framework": "^7.0",
         "mashape/unirest-php": "^3.0",
         "nunomaduro/laravel-console-menu": "^2.1"
     },
