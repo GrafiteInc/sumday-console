@@ -15,7 +15,7 @@ class AuthCommand extends Command
      * @var string
      */
     protected $signature = 'auth
-                            {token : Your API token from Sumday}';
+                            {token : An API token from Sumday}';
 
     /**
      * The description of the command.
